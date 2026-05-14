@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DreysStoreEcommerce.Models.ViewModels.WishlistItemViewModel>
+@{
+    ViewData["Title"] = "My Wishlist";
+}<br />
+
+<div class="container py-5">
+    <h2 class="mb-4">My Wishlist</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">Your wishlist is empty.</div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100">
+                        <img src="@item.ImageUrl" class="card-img-top" alt="@item.ProductName">
+                        <div class="card-body">
+                            <h5>@item.ProductName</h5>
+                            <p>@item.Price.ToString("C")</p>
+                            <form asp-action="Remove" method="post">
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    @* @await Html.PartialAsync("_ManageNav") *@
+</div>

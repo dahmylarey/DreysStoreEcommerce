@@ -1,0 +1,18 @@
+﻿@page
+@model DreysStoreEcommerce.Areas.Identity.Pages.Account.Manage.TwoFactorModel
+@{
+    ViewData["Title"] = "Two-Factor Authentication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container py-5">
+    <h2>@ViewData["Title"]</h2>
+    @await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+
+    <p>Two‑Factor Authentication is currently <strong>@(Model.Is2faEnabled ? "enabled" : "disabled")</strong>.</p>
+    <form method="post" asp-page-handler="Toggle">
+        <button type="submit" class="btn btn-primary">
+            @(Model.Is2faEnabled ? "Disable 2FA" : "Enable 2FA")
+        </button>
+    </form>
+    @await Html.PartialAsync("_ManageNav")
+</div>

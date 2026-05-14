@@ -1,0 +1,68 @@
+﻿@model DreysStoreEcommerce.Models.DTOs.ViewModels.ProductDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Product.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="container py-5 justify-content-center align-content-center">
+    <h2>@Model.Product.Name</h2>
+    <br />
+    <img src="@Model.Product.ImageUrl" alt="@Model.Product.Name" class="img-fluid" />
+    <p>@Model.Product.Description</p>
+    <p>Price: ₦@Model.Product.Price</p>
+
+    <form asp-controller="Wishlist" asp-action="Add" method="post" class="mb-2">
+        <input type="hidden" name="productId" value="@Model.Product.Id" />
+        <input type="hidden" name="quantity" value="1" />
+        <button type="submit" class="btn btn-success">Add to Cart</button>
+    </form>
+
+
+    <form asp-controller="Wishlist" asp-action="Add" method="post">
+        <input type="hidden" name="productId" value="@Model.Product.Id" />
+        <button type="submit" class="btn btn-outline-primary">Add to Wishlist</button>
+    </form>
+
+    <hr />
+    <h4>Reviews</h4>
+
+    @foreach (var review in Model.Reviews)
+    {
+        <div class="border rounded p-2 mb-2">
+            <strong>@review.UserName</strong>
+            <span class="text-warning">(@review.Rating ★)</span>
+            <p>@review.Comment</p>
+            <small>@review.CreatedAt.ToLocalTime().ToString("g")</small>
+        </div>
+    }
+
+    <hr />
+    <h4>Add your review</h4>
+    @if (Model.Reviews?.Any() == true)
+    {
+        <form asp-action="Add" asp-controller="Review" method="post">
+            <input type="hidden" name="productId" value="@Model.Product.Id" />
+            <div class="mb-2">
+                <textarea name="comment" class="form-control" placeholder="Your review"></textarea>
+            </div>
+            <div class="mb-2">
+                <select name="rating" class="form-select">
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+    }
+    else
+    {
+        <p>No reviews yet.</p>
+    }
+
+    @* @await Html.PartialAsync("_ManageNav") *@
+</div>
+

@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Order Successful";
+}
+
+<div class="container py-5">
+    <h2>Thank you!</h2>
+    <p>Your order was successfully placed.</p>
+
+    <p>Order ID: <strong>@ViewBag.OrderId</strong></p>
+
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Continue Shopping</a>
+
+    <a asp-controller="Order" asp-action="History" class="btn btn-outline-primary">View Order History</a>
+</div>

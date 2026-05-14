@@ -1,0 +1,50 @@
+﻿@model List<DreysStoreEcommerce.Models.ViewModels.OrderViewModel>
+@{
+    ViewData["Title"] = "My Orders";
+}
+<br />
+
+<div class="container py-5">
+    <h2 class="mb-4">Order History</h2>
+
+    @if (!Model.Any())
+    {
+        <p>You have no orders yet.</p>
+    }
+    else
+    {
+        @foreach (var order in Model)
+        {
+            <div class="card mb-4">
+                <div class="card-header">
+                    <strong>Order #@order.Id</strong> - @order.Status
+                    <span class="float-end">@order.OrderDate.ToLocalTime().ToString("g")</span>
+                </div>
+                <div class="card-body">
+                    <p><strong>Total:</strong> @order.TotalAmount.ToString("C")</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in order.Items)
+                            {
+                                <tr>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.UnitPrice.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+    @* @await Html.PartialAsync("_ManageNav") *@
+
+</div>

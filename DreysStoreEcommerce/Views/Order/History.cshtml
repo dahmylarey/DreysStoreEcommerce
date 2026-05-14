@@ -1,0 +1,80 @@
+﻿@model IEnumerable<DreysStoreEcommerce.Models.Order>
+
+@{
+    ViewData["Title"] = "Order History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}<br />
+<div>
+
+    <h2 class="mb-4">Order History</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">You have no orders yet.</div>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Order #</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Items</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.CreatedAt.ToString("dd MMM yyyy")</td>
+                        <td>₦@order.TotalAmount.ToString("N2")</td>
+                        <td>@order.Status</td>
+                        <td>
+                            <ul class="list-unstyled">
+                                @foreach (var item in order.Items)
+                                {
+                                    <li>@item.Product?.Name (x@item.Quantity)</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+</div>
+@* @if (!Model.Any())
+{
+    <p>No orders yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.OrderDate.ToLocalTime().ToString("g")</td>
+                    <td>@order.Status</td>
+                    <td>₦@order.TotalAmount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} *@
+
+@* @await Html.PartialAsync("_ManageNav") *@

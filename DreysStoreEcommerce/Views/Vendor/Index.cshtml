@@ -1,0 +1,24 @@
+﻿@model DreysStoreEcommerce.Controllers.VendorController.VendorDashboardViewModel
+@{
+    ViewData["Title"] = "Vendor Dashboard";
+}
+<h2>Welcome, @Model.VendorName</h2>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5>Products</h5>
+                <p class="display-4">@Model.ProductCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5>Orders</h5>
+                <p class="display-4">@Model.OrderCount</p>
+            </div>
+        </div>
+    </div>
+</div>

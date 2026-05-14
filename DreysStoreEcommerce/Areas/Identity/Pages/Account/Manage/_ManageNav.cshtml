@@ -1,0 +1,35 @@
+﻿@* Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml *@
+@{
+    var activePage = ViewContext.ViewData["ActivePage"] as string;
+}
+
+<ul class="nav nav-pills flex-column mb-3">
+    <li class="nav-item">
+        <a class="nav-link @(activePage == "Index" ? "active" : "")"
+           asp-area="Identity"
+           asp-page="/Account/Manage/Index">
+            <i class="bi bi-person"></i> Profile
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(activePage == "ChangePassword" ? "active" : "")"
+           asp-area="Identity"
+           asp-page="/Account/Manage/ChangePassword">
+            <i class="bi bi-key"></i> Change Password
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(activePage == "TwoFactorAuthentication" ? "active" : "")"
+           asp-area="Identity"
+           asp-page="/Account/Manage/TwoFactorAuthentication">
+            <i class="bi bi-shield-lock"></i> Two-Factor Authentication
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(activePage == "PersonalData" ? "active" : "")"
+           asp-area="Identity"
+           asp-page="/Account/Manage/PersonalData">
+            <i class="bi bi-file-earmark-text"></i> Personal Data
+        </a>
+    </li>
+</ul>

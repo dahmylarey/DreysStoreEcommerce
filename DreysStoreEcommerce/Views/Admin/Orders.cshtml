@@ -1,0 +1,29 @@
+﻿@model IEnumerable<DreysStoreEcommerce.Models.Order>
+@{
+    ViewData["Title"] = "Orders";
+}
+<h2>Orders</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Order #</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.ApplicationUser?.UserName</td>
+                <td>@order.CreatedAt.ToString("g")</td>
+                <td>@order.Status</td>
+                <td>@order.TotalAmount.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- slider section -->
+<section class="slider_section position-relative">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="slider_item-box">
+                    <div class="slider_item-container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="slider_item-detail">
+                                        <h1>Welcome to <br /> Drey Store</h1>
+                                        <p>
+                                            Discover the freshest and Affordable Goods delivered right to your door.
+                                        </p>
+                                        <div class="d-flex">
+                                            <a asp-controller="Products" asp-action="Index" class="text-uppercase custom_orange-btn mr-3">Shop Now</a>
+                                            <a asp-controller="Contact" asp-action="Index" class="text-uppercase custom_dark-btn">Contact Us</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="slider_img-box">
+                                        <img src="~/images/slide-img.png" alt="Fresh fruits" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- You can duplicate above .carousel-item for more slides -->
+        </div><br />
+        @* <div class="custom_carousel-control">
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="sr-only">Next</span>
+            </a>
+        </div> *@
+    </div>
+</section>
+<!-- end slider section -->
+<!-- service section -->
+<section class="service_section layout_padding">
+    <div class="container">
+        <h2 class="custom_heading">Electric Appliances</h2>
+        <p class="custom_heading-text">We offer premium best quality you can trust and fast delivery</p>
+        <div class="layout_padding2">
+            <div class="card-deck">
+                <div class="card">
+                    <img class="card-img-top" src="~/images/card-item-1.png" alt="Orange" />
+                    <div class="card-body">
+                        <h5 class="card-title">Fashion</h5>
+                        <p class="card-text">Juicy and fresh Fashion Styles delivered straight to your Door Step.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="~/images/card-item-2.png" alt="Grapes" />
+                    <div class="card-body">
+                        <h5 class="card-title">Electronics</h5>
+                        <p class="card-text">Crisp and sweet grapes perfect for your table.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="~/images/card-item-3.png" alt="Guava" />
+                    <div class="card-body">
+                        <h5 class="card-title">Home & Kitchen</h5>
+                        <p class="card-text">Delicious guavas full of natural flavor and vitamins.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a asp-controller="Products" asp-action="Index" class="custom_dark-btn">Read More</a>
+        </div>
+    </div>
+</section>
+<!-- end service section -->
+<!-- fruits section -->
+<section class="fruit_section">
+    <div class="container">
+        <h2 class="custom_heading">Electronics</h2>
+        <p class="custom_heading-text">Hand-picked and carefully packed to preserve freshness</p>
+
+        <div class="row layout_padding2">
+            <div class="col-md-8">
+                <div class="fruit_detail-box">
+                    <h3>Best Fresh Orange</h3>
+                    <p class="mt-4 mb-5">Enjoy our delicious fresh oranges directly from the farm to your table.</p>
+                    <a asp-controller="Products" asp-action="Index" class="custom_dark-btn">Buy Now</a>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <div class="fruit_img-box">
+                    <img src="~/images/orange.png" alt="Orange" width="250px" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row layout_padding2">
+            <div class="col-md-8">
+                <div class="fruit_detail-box">
+                    <h3>Fashion</h3>
+                    <p class="mt-4 mb-5">Crisp, juicy grapes perfect for snacking anytime of the day.</p>
+                    <a asp-controller="Products" asp-action="Index" class="custom_dark-btn">Buy Now</a>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <div class="fruit_img-box">
+                    <img src="~/images/grapes.png" alt="Grapes" width="100px" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row layout_padding2-top layout_padding-bottom">
+            <div class="col-md-8">
+                <div class="fruit_detail-box">
+                    <h3>Home & Kitchen</h3>
+                    <p class="mt-4 mb-5">Modern and Affordable.</p>
+                    <a asp-controller="Products" asp-action="Index" class="custom_dark-btn">Buy Now</a>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <div class="fruit_img-box">
+                    <img src="~/images/gauva.png" alt="Guava" width="250px" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end fruits section -->
+<!-- tasty section -->
+<section class="tasty_section">
+    <div class="container_fluid">
+        <h2>Very tasty fruits</h2>
+    </div>
+</section>
+<!-- end tasty section -->
+<!-- contact section -->
+<section class="contact_section layout_padding">
+    <div class="container">
+        <h2 class="font-weight-bold">Contact Us</h2>
+        <div class="row">
+            <div class="col-md-8 mr-auto">
+                <form asp-controller="Contact" asp-action="Send" method="post">
+                    <div class="contact_form-container">
+                        <div>
+                            <input type="text" name="Name" placeholder="Name" required />
+                            <input type="text" name="Phone" placeholder="Phone Number" />
+                            <input type="email" name="Email" placeholder="Email" required />
+                            <input type="text" name="Message" placeholder="Message" class="mt-5" required />
+                            <button type="submit" class="mt-5">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end contact section -->
+<!-- map section -->
+<section class="map_section">
+    <div id="map" class="h-100 w-100"></div>
+</section>
+<!-- end map section -->

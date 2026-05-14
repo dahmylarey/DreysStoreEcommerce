@@ -1,0 +1,33 @@
+﻿@model DreysStoreEcommerce.Models.DTOs.ViewModels.VendorDashboardViewModel
+@{
+    ViewData["Title"] = "Vendor Dashboard";
+   
+}
+<h2 class="mb-4">Welcome to your Vendor Dashboard</h2>
+
+<div class="row text-center">
+    <div class="col-md-4 mb-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Total Products</h5>
+                <h3>@Model.TotalProducts</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Total Orders</h5>
+                <h3>@Model.TotalOrders</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Pending Approvals</h5>
+                <h3>@Model.PendingProducts</h3>
+            </div>
+        </div>
+    </div>
+</div>

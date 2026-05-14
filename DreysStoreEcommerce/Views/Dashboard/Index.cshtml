@@ -1,0 +1,31 @@
+﻿@model DreysStoreEcommerce.Controllers.VendorDashboardViewModel
+
+@{
+    ViewData["Title"] = "Vendor Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // use your vendor layout
+}
+
+<div class="container py-5 text-center">
+    <h2 class="mb-4">Vendor Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow rounded-2xl p-3">
+                <h4>Total Products</h4>
+                <p class="display-4">@Model.ProductCount</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow rounded-2xl p-3">
+                <h4>Total Orders</h4>
+                <p class="display-4">@Model.OrderCount</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow rounded-2xl p-3">
+                <h4>Total Revenue</h4>
+                <p class="display-4">₦@Model.TotalRevenue.ToString("N2")</p>
+            </div>
+        </div>
+    </div>
+</div>

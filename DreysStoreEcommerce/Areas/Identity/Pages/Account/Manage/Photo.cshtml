@@ -1,0 +1,23 @@
+﻿@page
+@model DreysStoreEcommerce.Areas.Identity.Pages.Account.Manage.PhotoModel
+@{
+    ViewData["Title"] = "Profile Picture";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container py-5">
+    <h2>@ViewData["Title"]</h2>
+    @await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+
+    @if (!string.IsNullOrEmpty(Model.CurrentPhoto))
+    {
+        <img src="@Model.CurrentPhoto" class="img-thumbnail mb-3" width="150" />
+    }
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <input type="file" name="Upload" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+    @await Html.PartialAsync("_ManageNav")
+</div>

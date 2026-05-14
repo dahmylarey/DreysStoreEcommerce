@@ -1,0 +1,27 @@
+﻿@model IEnumerable<DreysStoreEcommerce.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "Users";
+}
+<h2>Users</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>User Name</th>
+            <th>Phone</th>
+            <th>Email Confirmed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>@user.PhoneNumber</td>
+                <td>@(user.EmailConfirmed ? "Yes" : "No")</td>
+            </tr>
+        }
+    </tbody>
+</table>

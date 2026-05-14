@@ -1,0 +1,93 @@
+﻿@model IEnumerable<DreysStoreEcommerce.Models.Notification>
+
+@{
+    ViewData["Title"] = "Notifications";
+    var page = ViewBag.Page ?? 1;
+    var pageSize = ViewBag.PageSize ?? 10;
+    var totalCount = ViewBag.TotalCount ?? 0;
+    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+}
+
+<div class="container py-4">
+    <h2 class="mb-3">Notifications</h2>
+
+    <form method="get" class="mb-3">
+        <select name="filter" class="form-select" style="width:auto; display:inline;">
+            <option value="all" selected>All</option>
+            <option value="unread">Unread</option>
+            <option value="read">Read</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+    <div class="mb-3">
+        <a asp-action="MarkAllAsRead" class="btn btn-success">Mark All as Read</a>
+        <a asp-action="DeleteAll" class="btn btn-danger">Delete All</a>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No notifications found.</div>
+    }
+    else
+    {
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Message</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var note in Model)
+                {
+                    <tr class="@(note.IsRead ? "" : "table-warning")">
+                        <td>@note.Message</td>
+                        <td>
+                            @if (note.IsRead)
+                            {
+                                <span class="badge bg-success">Read</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Unread</span>
+                            }
+                        </td>
+                        <td>@note.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>
+                            @if (!note.IsRead)
+                            {
+                                <form asp-action="MarkAsRead" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@note.Id" />
+                                    <button type="submit" class="btn btn-sm btn-primary">Mark as read</button>
+                                </form>
+                            }
+                            <form asp-action="DeleteNotification" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@note.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(page == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-action="Notifications" asp-route-page="@(page - 1)">Previous</a>
+                </li>
+                @for (var p = 1; p <= totalPages; p++)
+                {
+                    <li class="page-item @(p == page ? "active" : "")">
+                        <a class="page-link" asp-action="Notifications" asp-route-page="@p">@p</a>
+                    </li>
+                }
+                <li class="page-item @(page == totalPages ? "disabled" : "")">
+                    <a class="page-link" asp-action="Notifications" asp-route-page="@(page + 1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

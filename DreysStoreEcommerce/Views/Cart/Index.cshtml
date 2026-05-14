@@ -1,0 +1,46 @@
+﻿@model List<DreysStoreEcommerce.Models.ViewModels.CartItemViewModel>
+
+@{
+    ViewData["Title"] = "My Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}<br />
+
+<div class="container py-5">
+    <h2>My Cart</h2>
+
+    @if (!Model.Any())
+    {
+        <p>Your cart is empty.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>₦@item.Price</td>
+                        <td>₦@(item.Price* item.Quantity)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <form asp-action="Process" asp-controller="Checkout" method="post">
+            <button type="submit" class="btn btn-success">Checkout</button>
+            <a asp-action="Clear" class="btn btn-sm btn-primary mb-1">Clear Cart</a>
+        </form>
+        @* @await Html.PartialAsync("_ManageNav") *@
+    }
+
+</div>

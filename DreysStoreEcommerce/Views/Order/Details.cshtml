@@ -1,0 +1,36 @@
+﻿@model DreysStoreEcommerce.Models.Order
+@{
+        ViewData["Title"] = "Order Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <h2>Order Details</h2>
+    <p><strong>Date:</strong> @Model.CreatedAt</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Total:</strong> @Model.TotalAmount.ToString("C")</p>
+
+    <h4>Items</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitPrice.ToString("C")</td>
+                    <td>@(item.UnitPrice* item.Quantity).ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @* @await Html.PartialAsync("_ManageNav") *@
+</div>

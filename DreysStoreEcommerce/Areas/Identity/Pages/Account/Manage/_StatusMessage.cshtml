@@ -1,0 +1,6 @@
+﻿@model string
+@if (!string.IsNullOrEmpty(Model))
+{
+    <div class="alert alert-info mt-3">@Model</div>
+}
+@await Html.PartialAsync("_ManageNav")
