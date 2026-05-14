@@ -49,11 +49,48 @@ namespace DreysStoreEcommerce.Controllers
         }
 
         // GET: Vendor Dashboard
+        //[Authorize(Roles = "Admin,Vendor")]
+        //public async Task<IActionResult> Dashboard()
+        //{
+        //    var vendor = await GetCurrentVendorAsync();
+        //    if (vendor == null) return NotFound();
+
+        //    var totalProducts = await _context.Products.CountAsync(p => p.VendorId == vendor.Id);
+        //    var totalOrders = await _context.Orders.CountAsync(o => o.VendorId == vendor.Id);
+        //    var pendingProducts = await _context.Products.CountAsync(p => p.VendorId == vendor.Id && !p.IsApproved);
+
+        //    var model = new VendorDashboardViewModel
+        //    {
+        //        TotalProducts = totalProducts,
+        //        TotalOrders = totalOrders,
+        //        PendingProducts = pendingProducts
+        //    };
+
+        //    return View(model);
+        //}
+
+        // GET: Vendor Dashboard
         [Authorize(Roles = "Admin,Vendor")]
-        public IActionResult Dashboard()
+        public async Task<IActionResult> Dashboard()
         {
-            return View();
+            var vendor = await GetCurrentVendorAsync();
+            if (vendor == null) return NotFound();
+
+            var totalProducts = await _context.Products.CountAsync(p => p.VendorId == vendor.Id);
+            var totalOrders = await _context.Orders.CountAsync(o => o.VendorId == vendor.Id);
+            var pendingProducts = await _context.Products.CountAsync(p => p.VendorId == vendor.Id && !p.IsApproved);
+
+            // Create the DTO type the view expects
+            var model = new DreysStoreEcommerce.Models.DTOs.ViewModels.VendorDashboardViewModel
+            {
+                TotalProducts = totalProducts,
+                TotalOrders = totalOrders,
+                PendingProducts = pendingProducts
+            };
+
+            return View(model);
         }
+
 
         // GET: Create
         [Authorize(Roles = "Admin,Vendor")]
@@ -195,11 +232,19 @@ namespace DreysStoreEcommerce.Controllers
         }
 
         // ViewModel
+        //public class VendorDashboardViewModel
+        //{
+        //    public string VendorName { get; set; }
+        //    public int ProductCount { get; set; }
+        //    public int OrderCount { get; set; }
+        //}
+
         public class VendorDashboardViewModel
         {
             public string VendorName { get; set; }
-            public int ProductCount { get; set; }
-            public int OrderCount { get; set; }
+            public int TotalProducts { get; set; }
+            public int TotalOrders { get; set; }
+            public int PendingProducts { get; set; }
         }
 
         private async Task<Vendor> GetCurrentVendorAsync()
