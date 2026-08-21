@@ -54,6 +54,7 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddScoped<CartService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<PaymentService>();
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<WishlistService>();
 builder.Services.AddScoped<ReviewService>();

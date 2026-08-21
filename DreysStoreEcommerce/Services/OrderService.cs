@@ -51,6 +51,13 @@ namespace DreysStoreEcommerce.Services
             
         }
 
+        /// <summary>
+        /// Create an order record for the specified user using the provided cart items.
+        /// Calculates the total amount and persists Order and OrderItems to the database.
+        /// </summary>
+        /// <param name="user">The user placing the order.</param>
+        /// <param name="cartItems">List of cart items to include in the order.</param>
+        /// <returns>The persisted Order entity.</returns>
         public async Task<Order> CreateOrderAsync(ApplicationUser user, List<CartItem> cartItems)
         {
             _logger.LogInformation("Creating order for user {UserId} with {ItemCount} items", user.Id, cartItems.Count);
@@ -72,6 +79,10 @@ namespace DreysStoreEcommerce.Services
             return order;
         }
 
+        /// <summary>
+        /// Removes all cart items for the given user from the database.
+        /// </summary>
+        /// <param name="userId">Application user identifier.</param>
         public async Task ClearCartAsync(string userId)
         {
             _logger.LogInformation("Clearing cart for user {UserId}", userId);
@@ -81,6 +92,12 @@ namespace DreysStoreEcommerce.Services
         }
 
 
+        /// <summary>
+        /// Create an order from the user's cart and clear the cart in a single operation.
+        /// Returns the new order id, or -1 when the cart is empty.
+        /// </summary>
+        /// <param name="userId">Application user identifier.</param>
+        /// <returns>Order Id or -1 when cart is empty.</returns>
         public async Task<int> CheckoutAsync(string userId)
         {
             var cartItems = await _context.CartItems
@@ -110,6 +127,19 @@ namespace DreysStoreEcommerce.Services
 
             _logger.LogInformation($"Order {order.Id} created for user {userId}");
             return order.Id;
+        }
+
+        /// <summary>
+        /// Update the status of an existing order.
+        /// </summary>
+        /// <param name="orderId">Order identifier.</param>
+        /// <param name="status">New status value.</param>
+        public async Task UpdateOrderStatusAsync(int orderId, string status)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null) return;
+            order.Status = status;
+            await _context.SaveChangesAsync();
         }
     }
 

@@ -34,6 +34,13 @@
                     </tr>
                 }
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    @{ var total = Model.Sum(i => i.SubTotal); }
+                    <td><strong>₦@total.ToString("N2")</strong></td>
+                </tr>
+            </tfoot>
         </table>
 
         <form asp-action="ProcessOrder" asp-controller="Checkout" method="post">

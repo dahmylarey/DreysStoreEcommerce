@@ -11,6 +11,9 @@ namespace DreysStoreEcommerce.Controllers
 {
    
 
+    /// <summary>
+    /// Controller that handles checkout flow: viewing checkout, creating orders and initiating payment.
+    /// </summary>
     [Authorize]
     public class CheckoutController : Controller
     {
@@ -39,7 +42,11 @@ namespace DreysStoreEcommerce.Controllers
         }
 
         
-         public async Task<IActionResult> Process()
+        /// <summary>
+        /// Create an order from the user's cart and redirect to the success page.
+        /// This action is kept for compatibility with existing checkout flows.
+        /// </summary>
+        public async Task<IActionResult> Process()
             {
                 var user = await _userManager.GetUserAsync(User);
                 var orderId = await _orderService.CheckoutAsync(user.Id);
@@ -53,6 +60,12 @@ namespace DreysStoreEcommerce.Controllers
             }
 
 
+        /// <summary>
+        /// Process the order: create order record, clear cart, attempt to send confirmation email,
+        /// and redirect to the configured payment provider.
+        /// This method will not throw on email failures and will show a friendly message if payment
+        /// provider initialization fails.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> ProcessOrder()
         {
@@ -81,9 +94,26 @@ namespace DreysStoreEcommerce.Controllers
                 _logger?.LogWarning(ex, "Email sending failed for order {OrderId}; continuing checkout.", order.Id);
             }
 
-            // Redirect to Stripe checkout
+            // Prefer Paystack when configured (e.g. NGN/local). Fall back to Stripe if Paystack is not configured.
             var successUrl = Url.Action("Success", "Checkout", null, Request.Scheme);
             var cancelUrl = Url.Action("Index", "Checkout", null, Request.Scheme);
+
+            if (_paymentService.IsPaystackConfigured())
+            {
+                try
+                {
+                    var paystackUrl = await _paymentService.CreatePaystackCheckoutSession(order.TotalAmount, user.Email, successUrl, order.Id);
+                    return Redirect(paystackUrl);
+                }
+                catch (Exception ex)
+                {
+                    _logger?.LogError(ex, "Failed to create Paystack checkout session for order {OrderId}", order.Id);
+                    TempData["ErrorMessage"] = "There was a problem initializing the Paystack payment gateway. Please try again later.";
+                    return RedirectToAction("Index");
+                }
+            }
+
+            // Redirect to Stripe as fallback
             try
             {
                 var stripeUrl = await _paymentService.CreateStripeCheckoutSession(order.TotalAmount, successUrl, cancelUrl);
