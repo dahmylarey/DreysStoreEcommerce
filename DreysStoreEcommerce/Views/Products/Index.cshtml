@@ -11,38 +11,54 @@
 
     <a class="btn btn-primary mb-3 align-content-center" asp-action="Create">Add New Product</a>
 
-    <div class="row rounded">
+    <div class="row g-4 modern-products">
         @foreach (var item in Model)
         {
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name" />
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">@item.Name</h5>
-                        <p class="card-text">@item.Price.ToString("C")</p><!-- "C" = currency format -->
-
-                        <div class="mt-auto">
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary mb-1">Details</a>
-
-                            <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                <div class="product-card h-100 shadow-sm">
+                    <div class="product-media">
+                        <img src="@item.ImageUrl" alt="@item.Name" class="product-img" />
+                        <div class="product-overlay">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="overlay-btn" title="View">
+                                <!-- info icon -->
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="#fff" stroke-width="1.5"/><path d="M12 8h.01" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><path d="M11.5 12h1v4h-1z" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
+                            </a>
+                            <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline overlay-btn" title="Add to cart">
                                 <input type="hidden" name="productId" value="@item.Id" />
                                 <input type="hidden" name="quantity" value="1" />
-                                <button type="submit" class="btn btn-sm btn-success mb-1">Add to Cart</button>
+                                <button type="submit" class="btn-ghost" aria-label="Add to cart">
+                                    <!-- cart icon -->
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6h15l-1.5 9h-11L6 6z" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" fill="none"/><circle cx="10" cy="19" r="1" fill="#fff"/><circle cx="18" cy="19" r="1" fill="#fff"/></svg>
+                                </button>
                             </form>
-
+                            <button class="overlay-btn favorite-btn" title="Add to wishlist">
+                                <!-- heart icon -->
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.8 7.6c0 5.1-8 9.9-8.8 10.4-.8-.5-8.8-5.3-8.8-10.4C3.2 5 5.9 3 8.7 4.1 10 4.7 11 5.9 12 7c1-1.1 2-2.3 3.3-2.9 2.8-1.1 5.5 1 5.5 3.5z" stroke="#fff" stroke-width="1.2" fill="none"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-body p-3 d-flex flex-column">
+                        <h6 class="product-title mb-2">@item.Name</h6>
+                        <div class="product-price mb-3">@item.Price.ToString("C")</div>
+                        <div class="mt-auto d-flex gap-2">
                             @{
                                 var user = UserManager.GetUserAsync(User).Result;
                                 var roles = user != null ? UserManager.GetRolesAsync(user).Result : new List<string>();
                                 var isAdminOrVendor = roles.Contains("Admin") || roles.Contains("Vendor");
                             }
 
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">View</a>
+                            <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline">
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button type="submit" class="btn btn-sm btn-success">Add to cart</button>
+                            </form>
+
                             @if (isAdminOrVendor)
                             {
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning mb-1">Edit</a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger mb-1">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
                             }
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -8,27 +8,33 @@
 <div class="container py-5">
     <h2>Checkout</h2>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Qty</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Product.Name</td>
-                    <td>@item.Quantity</td>
-                    <td>@(item.Product.Price* item.Quantity).ToString("C")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <form asp-action="ProcessOrder" method="post">
-        <button type="submit" class="btn btn-success">Pay & Place Order</button>
-    </form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="list-group">
+                @foreach (var item in Model)
+                {
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>@item.Product.Name</strong>
+                            <div class="text-muted small">Qty: @item.Quantity</div>
+                        </div>
+                        <div class="fw-bold">@((item.Product.Price * item.Quantity).ToString("C"))</div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Order Summary</h5>
+                    @{ decimal total = Model.Sum(i => i.Product.Price * i.Quantity); }
+                    <p class="h4 text-primary">Total: @total.ToString("C")</p>
+                    <form asp-action="ProcessOrder" method="post">
+                        <button type="submit" class="btn btn-success w-100"><i class="fas fa-credit-card me-2"></i>Pay & Place Order</button>
+                    </form>
+                    <small class="text-muted d-block mt-2">You will be redirected to a secure payment provider to complete payment.</small>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

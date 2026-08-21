@@ -96,12 +96,12 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" asp-controller="Products" asp-action="Index">Products</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index"><i class="fas fa-home me-1"></i>Home</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Products" asp-action="Index"><i class="fas fa-th me-1"></i>Products</a></li>
                            @*  <li class="nav-item"><a class="nav-link" asp-controller="Search" asp-action="Index">Shop</a></li> *@
-                            <li class="nav-item"><a class="nav-link" asp-controller="Cart" asp-action="Index">Cart</a></li>
-                            <li class="nav-item"><a class="nav-link" asp-controller="Wishlist" asp-action="Index">Wishlist</a></li>
-                            <li class="nav-item"><a class="nav-link" asp-controller="Order" asp-action="Index">Orders</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Cart" asp-action="Index"><i class="fas fa-shopping-cart me-1"></i>Cart</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Wishlist" asp-action="Index"><i class="fas fa-heart me-1"></i>Wishlist</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Order" asp-action="Index"><i class="fas fa-box me-1"></i>Orders</a></li>
 
                             @* notification *@
                             @if (notifications.Any())

@@ -31,16 +31,23 @@
         </div>
     </form>
 
-    <div class="row">
+    <div class="row g-4 modern-products">
         @foreach (var p in Model)
         {
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <img src="@p.ImageUrl" class="card-img-top" />
-                    <div class="card-body">
-                        <h5>@p.Name</h5>
-                        <p>@p.Price.ToString("C")</p>
-                        <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-sm btn-outline-primary">View</a>
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                <div class="product-card h-100 shadow-sm">
+                    <div class="product-media">
+                        <img src="@p.ImageUrl" class="product-img" />
+                        <div class="product-overlay">
+                            <a asp-action="Details" asp-route-id="@p.Id" class="overlay-btn"><i class="fas fa-info"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-body p-3 d-flex flex-column">
+                        <h6 class="product-title mb-2">@p.Name</h6>
+                        <div class="product-price mb-3">@p.Price.ToString("C")</div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-sm btn-outline-primary"><i class="fas fa-eye me-1"></i>View</a>
+                        </div>
                     </div>
                 </div>
             </div>

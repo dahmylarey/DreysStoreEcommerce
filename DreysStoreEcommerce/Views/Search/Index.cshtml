@@ -14,16 +14,33 @@
     }
     else
     {
-        <div class="row">
+        <div class="row g-4 modern-products">
             @foreach (var item in Model)
             {
-                <div class="col-md-3 mb-3">
-                    <div class="card h-100">
-                        <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name" />
-                        <div class="card-body">
-                            <h5>@item.Name</h5>
-                            <p>@item.Price.ToString("C")</p>
-                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">View</a>
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                    <div class="product-card h-100 shadow-sm">
+                        <div class="product-media">
+                            <img src="@item.ImageUrl" alt="@item.Name" class="product-img" />
+                            <div class="product-overlay">
+                                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="overlay-btn" title="View"><i class="fas fa-info"></i></a>
+                                <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline overlay-btn" title="Add to cart">
+                                    <input type="hidden" name="productId" value="@item.Id" />
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button type="submit" class="btn-ghost" aria-label="Add to cart"><i class="fas fa-shopping-cart"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="product-body p-3 d-flex flex-column">
+                            <h6 class="product-title mb-2">@item.Name</h6>
+                            <div class="product-price mb-3">@item.Price.ToString("C")</div>
+                            <div class="mt-auto d-flex gap-2">
+                                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary"><i class="fas fa-eye me-1"></i>View</a>
+                                <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline">
+                                    <input type="hidden" name="productId" value="@item.Id" />
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-shopping-cart me-1"></i>Add</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
