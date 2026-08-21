@@ -36,8 +36,8 @@
             </tbody>
         </table>
 
-        <form asp-action="Process" asp-controller="Checkout" method="post">
-            <button type="submit" class="btn btn-success">Checkout</button>
+        <form asp-action="ProcessOrder" asp-controller="Checkout" method="post">
+            <button type="submit" class="btn btn-success"><i class="fas fa-credit-card me-1"></i>Checkout</button>
             <a asp-action="Clear" class="btn btn-sm btn-primary mb-1">Clear Cart</a>
         </form>
         @* @await Html.PartialAsync("_ManageNav") *@

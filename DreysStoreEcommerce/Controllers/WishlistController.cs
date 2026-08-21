@@ -50,6 +50,7 @@ namespace DreysStoreEcommerce.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             await _wishlistService.RemoveFromWishlistAsync(user.Id, productId);
+            TempData["Success"] = "Item removed from wishlist.";
             return RedirectToAction("Index");
         }
     }

@@ -31,6 +31,7 @@ namespace DreysStoreEcommerce.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             await _cartService.AddToCartAsync(user.Id, productId, quantity);
+            TempData["Success"] = "✅ Item added to cart.";
             return RedirectToAction("Index");
         }
         //public async Task<IActionResult> Index()
